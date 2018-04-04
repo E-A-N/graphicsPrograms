@@ -46,6 +46,7 @@ const main = function() {
     //Unbind the buffer
     GL.bindBuffer(GL.ARRAY_BUFFER, null);
 
+    //Create Shaders!!!
     const vertexShaderProgram = `
         attribute vec2 coordinates;
         void main(void) {
@@ -59,7 +60,24 @@ const main = function() {
         }
     `;
 
+    //create shader object, attach source code then compile it
+    const vertexShader = GL.createShader(GL.VERTEX_SHADER);
+    GL.shaderSource(vertexShader, vertexShaderProgram);
+    GL.compileShader(vertextShader);
 
+    //create shader object, attach source code then compile it
+    const fragmentShader = GL.createShader(GL.FRAGMENT_SHADER);
+    GL.shaderSource(fragmentShader, fragmentShaderProgram);
+    GL.compileShader(fragmentShader);
+
+
+    //Associate shader programs to buffer objects
+
+    //Bind vertex buffer object
+    GL.bindBuffer(GL.ARRAY_BUFFER, vertexBuffer);
+
+    //Get attribute location
+    const coor = GL.getAttribLocation(shaderProgram)
 }
 
 window.onload = main;
