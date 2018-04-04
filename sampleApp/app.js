@@ -46,6 +46,18 @@ const main = function() {
     //Unbind the buffer
     GL.bindBuffer(GL.ARRAY_BUFFER, null);
 
+    const vertexShaderProgram = `
+        attribute vec2 coordinates;
+        void main(void) {
+            gl_Position = vec4(coordinates, 0.0, 1.0);
+        }
+    `;
+
+    const fragmentShaderProgram = `
+        void main(void) {
+            gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);
+        }
+    `;
 
 
 }
