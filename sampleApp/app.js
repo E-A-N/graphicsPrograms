@@ -70,6 +70,11 @@ const main = function() {
     GL.shaderSource(fragmentShader, fragmentShaderProgram);
     GL.compileShader(fragmentShader);
 
+    const shaderProgram = GL.createProgram();
+    GL.attachShader(shaderProgram, vertexShader);
+    GL.attachShader(shaderProgram, fragmentShader);
+    GL.linkProgram(shaderProgram);
+    GL.useProgram(shaderProgram);
 
     //Associate shader programs to buffer objects
 
@@ -77,7 +82,28 @@ const main = function() {
     GL.bindBuffer(GL.ARRAY_BUFFER, vertexBuffer);
 
     //Get attribute location
-    const coor = GL.getAttribLocation(shaderProgram)
+    const coord = GL.getAttribLocation(shaderProgram);
+
+    //point coordinates to vertex buffer object
+    GL.vertexAttribPointer(coord, 2, GL.FLOAT, false, 0, 0);
+
+    //Enable the attribute
+    GL.enableVertexAttribArray(coord);
+
+    // Draw the required triangle
+    GL.clearColor( 0.5, 0.5, 0.5, 0.9); //this clears the canvas
+
+    //Enable depth test NOTE: research more on this
+    GL.enable(GL.DEPTH_TEST);
+
+    //Clear the color buffer bit
+    GL.clear(GL.COLOR_BUFFER_BIT);
+
+    //Set the view port
+    GL.viewport(0,0, canvas.width, canvas.height);
+
+    //Draw the triangle
+    GL.drawArrays(GL.TRIANGLES, 0 , 3);
 }
 
 window.onload = main;
