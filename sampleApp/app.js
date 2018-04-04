@@ -8,11 +8,10 @@ const main = function() {
         });
     }
 
-
     const canvas = document.createElement("canvas");
     const canvasAttributes = [
-        ["width", 200],
-        ["height", 300],
+        ["width", 640],
+        ["height", 480],
         ["id", "glCanvas"]
     ];
 
@@ -20,9 +19,35 @@ const main = function() {
     div.appendChild(canvas);
     mapAttributes(canvas, ...canvasAttributes);
 
-
     const GL = canvas.getContext("webgl");
-    console.log(guiReference,canvas,GL);
+
+    //Define geometry
+    const shapeCoordinates = [
+        -0.5,
+         0.5,
+        -0.5,
+        -0.5,
+         0.0,
+        -0.5
+    ]
+
+    //create buffer object
+    const vertexBuffer = GL.createBuffer();
+
+    //Bind an empty array to vertex buffer
+    GL.bindBuffer(GL.ARRAY_BUFFER, verterBuffer);
+
+    //Convert shape coordinates to a vertex buffer
+    const shapeBuffer = new Float32Array(shapeCoordinates);
+
+    //Pass Vertex data to the buffer
+    GL.bufferData(GL.ARRAY_BUFFER, shapeBuffer, GL.STATIC_DRAW)
+
+    //Unbind the buffer
+    GL.bindBuffer(GL.ARRAY_BUFFER, null);
+
+
+
 }
 
 window.onload = main;
