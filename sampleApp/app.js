@@ -35,7 +35,7 @@ const main = function() {
     const vertexBuffer = GL.createBuffer();
 
     //Bind an empty array to vertex buffer
-    GL.bindBuffer(GL.ARRAY_BUFFER, verterBuffer);
+    GL.bindBuffer(GL.ARRAY_BUFFER, vertexBuffer);
 
     //Convert shape coordinates to a vertex buffer
     const shapeBuffer = new Float32Array(shapeCoordinates);
@@ -63,7 +63,7 @@ const main = function() {
     //create shader object, attach source code then compile it
     const vertexShader = GL.createShader(GL.VERTEX_SHADER);
     GL.shaderSource(vertexShader, vertexShaderProgram);
-    GL.compileShader(vertextShader);
+    GL.compileShader(vertexShader);
 
     //create shader object, attach source code then compile it
     const fragmentShader = GL.createShader(GL.FRAGMENT_SHADER);
@@ -82,7 +82,7 @@ const main = function() {
     GL.bindBuffer(GL.ARRAY_BUFFER, vertexBuffer);
 
     //Get attribute location
-    const coord = GL.getAttribLocation(shaderProgram);
+    const coord = GL.getAttribLocation(shaderProgram, "coordinates");
 
     //point coordinates to vertex buffer object
     GL.vertexAttribPointer(coord, 2, GL.FLOAT, false, 0, 0);
@@ -104,6 +104,9 @@ const main = function() {
 
     //Draw the triangle
     GL.drawArrays(GL.TRIANGLES, 0 , 3);
+
+    //const debugCtx = WebGLDebugUtils.makeDebugContext(canvas.getContext("webgl"));
+    //console.log(debugCtx);
 }
 
 window.onload = main;
